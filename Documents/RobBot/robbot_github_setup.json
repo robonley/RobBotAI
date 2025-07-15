@@ -1,0 +1,32 @@
+{
+  "files": {
+    "appsscript.json": {
+      "type": "json",
+      "content": {
+        "timeZone": "America/Toronto",
+        "dependencies": {},
+        "exceptionLogging": "STACKDRIVER",
+        "runtimeVersion": "V8"
+      }
+    },
+    "Code.gs": {
+      "type": "server_js",
+      "content": "// Your full RobBot Gmail script goes here.\n// Replace this placeholder with your latest working version of Code.gs"
+    },
+    ".clasp.json": {
+      "type": "json",
+      "content": {
+        "scriptId": "ENTER_YOUR_SCRIPT_ID_HERE",
+        "rootDir": "."
+      }
+    },
+    ".github/workflows/deploy.yml": {
+      "type": "yaml",
+      "content": "name: Deploy to Google Apps Script\n\non:\n  push:\n    branches:\n      - main\n\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n\n    steps:\n      - name: Checkout code\n        uses: actions/checkout@v3\n\n      - name: Set up Node.js\n        uses: actions/setup-node@v3\n        with:\n          node-version: '18'\n\n      - name: Install dependencies\n        run: npm install -g @google/clasp\n\n      - name: Authenticate clasp\n        run: echo \"${{ secrets.CLASP_CREDENTIALS }}\" > ~/.clasprc.json\n\n      - name: Push to Google Apps Script\n        run: clasp push\n"
+    },
+    "README.md": {
+      "type": "markdown",
+      "content": "# RobBot Gmail Processor\n\nThis project is connected to a Google Apps Script project that automates client intake replies using OpenAI.\n\n## Setup\n\n### 1. Clone the Repo\n```bash\ngit clone https://github.com/your-username/robbot-gmail.git\ncd robbot-gmail\n```\n\n### 2. Authenticate clasp\n```bash\nnpm install -g @google/clasp\nclasp login\n```\n\n### 3. Link to an existing Apps Script project\n```bash\nclasp clone YOUR_SCRIPT_ID\n```\n\n### 4. Push or pull\n```bash\nclasp push      # Upload changes\nclasp pull      # Fetch latest changes\n```\n\n### 5. GitHub Actions (optional)\nCreate a GitHub secret named `CLASP_CREDENTIALS` and paste your `~/.clasprc.json` contents in it.\n\nThen any push to `main` will auto-deploy your script."
+    }
+  }
+}
